@@ -30,6 +30,7 @@ typedef struct
     bool button_raw;
     bool button_stable;
     bool button_armed;
+    bool user_led_on;
     uint8_t completed_laps;
     bool marker_raw;
     bool marker_stable;

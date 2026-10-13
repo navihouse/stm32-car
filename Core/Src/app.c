@@ -25,7 +25,7 @@ void App_Run(void)
         uint8_t mask = GrayProtocol_BlackMask(sample.raw_status);
         CarControl_Update(&car, now, mask, Board_ButtonPressed(), online, enabled);
         Board_MotorApply(car.left_pwm, car.right_pwm);
-        Board_SetLeds(car.state == CAR_RUNNING,
+        Board_SetLeds(car.user_led_on,
                        !online || car.state == CAR_FAULT_SENSOR ||
                        car.state == CAR_FAULT_LINE_LOST || car.state == CAR_START_REQUIRED);
         app_diagnostics.state = car.state;
@@ -40,6 +40,7 @@ void App_Run(void)
         app_diagnostics.gray_timeouts = sample.timeouts;
         app_diagnostics.gray_errors = sample.errors;
         app_diagnostics.gray_unexpected_bytes = sample.unexpected_bytes;
+        app_diagnostics.user_led_on = car.user_led_on;
         HAL_Delay(1U);
     }
 }

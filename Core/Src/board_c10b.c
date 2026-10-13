@@ -105,10 +105,10 @@ void Board_MotorApply(uint16_t left, uint16_t right)
     TIM3->EGR = TIM_EGR_UG;
 }
 
-void Board_SetLeds(bool running, bool fault)
+void Board_SetLeds(bool led1_on, bool fault)
 {
     HAL_GPIO_WritePin(BOARD_LED_PORT, BOARD_LED_RUN_PIN,
-                      running ? GPIO_PIN_RESET : GPIO_PIN_SET);
+                      led1_on ? GPIO_PIN_RESET : GPIO_PIN_SET);
     HAL_GPIO_WritePin(BOARD_LED_PORT, BOARD_LED_FAULT_PIN,
                       fault ? GPIO_PIN_RESET : GPIO_PIN_SET);
 }

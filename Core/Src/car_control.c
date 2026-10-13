@@ -135,6 +135,12 @@ void CarControl_Update(CarControl *car, uint32_t now_ms,
     bool marker_entered;
     bool button_event = ButtonPressedEvent(car, now_ms, pressed);
 
+    /* USER toggles LED1 even while the sensor or enable guard blocks motion. */
+    if (button_event)
+    {
+        car->user_led_on = !car->user_led_on;
+    }
+
     if (!enabled || !sensor_valid)
     {
         Stop(car, enabled ? CAR_FAULT_SENSOR : CAR_STOPPED);

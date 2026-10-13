@@ -261,6 +261,40 @@ static void TestCommunicationAndEnable(void)
     assert(sim.car.state == CAR_RUNNING);
 }
 
+static void TestUserLedToggle(void)
+{
+    Simulation sim;
+    Init(&sim, UINT32_MAX - 10U, false);
+    assert(!sim.car.user_led_on);
+    /* Both guards block motion; USER must still toggle LED1 after debounce. */
+    for (unsigned i = 0U; i < 8U; ++i)
+    {
+        CarControl_Update(&sim.car, ++sim.now, 0U, true, false, false);
+        CarControl_Update(&sim.car, ++sim.now, 0U, false, false, false);
+    }
+    assert(!sim.car.user_led_on);
+    for (unsigned i = 0U; i < CAR_BUTTON_DEBOUNCE_MS + 2U; ++i)
+        CarControl_Update(&sim.car, ++sim.now, 0U, true, false, false);
+    assert(sim.car.user_led_on);
+    for (unsigned i = 0U; i < 1000U; ++i)
+        CarControl_Update(&sim.car, ++sim.now, 0U, true, false, false);
+    assert(sim.car.user_led_on); /* holding only toggles once */
+    assert(sim.car.left_pwm == 0U && sim.car.right_pwm == 0U);
+    Release(&sim, 0xFFU);
+    for (unsigned i = 0U; i < CAR_BUTTON_DEBOUNCE_MS + 2U; ++i)
+        CarControl_Update(&sim.car, ++sim.now, 0U, true, false, true);
+    assert(!sim.car.user_led_on); /* next press turns it off during sensor fault */
+    Init(&sim, sim.now, true);
+    Advance(&sim, 100U, 0xFFU, true);
+    assert(!sim.car.user_led_on && sim.car.state == CAR_STOPPED);
+    Release(&sim, 0xFFU);
+    Press(&sim, 0xFFU);
+    assert(sim.car.user_led_on && sim.car.state == CAR_RUNNING);
+    Release(&sim, 0xFFU);
+    Press(&sim, 0xFFU);
+    assert(!sim.car.user_led_on && sim.car.state == CAR_STOPPED);
+}
+
 int main(void)
 {
     TestBootAndReset();
@@ -269,12 +303,13 @@ int main(void)
     TestRecoveryAndFault();
     TestAllSensorPatterns();
     TestCommunicationAndEnable();
+    TestUserLedToggle();
 #if CAR_TARGET_LAPS > 0U
     TestFinishLine();
     TestStartPositionAndDeparture();
     TestEarlyCrossing();
     TestClockWrap();
 #endif
-    printf("PASS: 8-channel control, buttons/reset, steering, all masks, communication/enable safety, %u-lap mode\n", (unsigned)CAR_TARGET_LAPS);
+    printf("PASS: 8-channel control, USER LED toggle/debounce/hold/reset, steering, all masks, communication/enable safety, %u-lap mode\n", (unsigned)CAR_TARGET_LAPS);
     return 0;
 }

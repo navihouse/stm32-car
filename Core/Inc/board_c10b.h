@@ -17,7 +17,7 @@
 #define BOARD_ENABLE_PORT        GPIOC
 #define BOARD_ENABLE_PIN         GPIO_PIN_13 /* low permits motion */
 #define BOARD_LED_PORT           GPIOC
-#define BOARD_LED_RUN_PIN        GPIO_PIN_2  /* active low */
+#define BOARD_LED_RUN_PIN        GPIO_PIN_2  /* LED1: USER toggle, active low */
 #define BOARD_LED_FAULT_PIN      GPIO_PIN_3  /* active low */
 #define BOARD_GRAY_PORT          GPIOC
 #define BOARD_GRAY_TX_PIN        GPIO_PIN_10 /* CN6.3 -> module RX */
@@ -30,7 +30,7 @@ void Board_Init(void);
 bool Board_ButtonPressed(void);
 bool Board_MotionEnabled(void);
 void Board_MotorApply(uint16_t left, uint16_t right);
-void Board_SetLeds(bool running, bool fault);
+void Board_SetLeds(bool led1_on, bool fault);
 void Board_EmergencyStop(void);
 
 #endif

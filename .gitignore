@@ -1,0 +1,72 @@
+# ------------------------------------------------------------------
+# Build output (CMake / Ninja / GCC-ARM)
+# ------------------------------------------------------------------
+build/
+out/
+cmake-build-*/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+install_manifest.txt
+compile_commands.json
+CMakeConfigureLog.yaml
+CMakeUserPresets.json
+*.cmake.user
+
+# Ninja
+.ninja_deps
+.ninja_log
+build.ninja
+rules.ninja
+
+# Compiler / linker artifacts
+*.o
+*.obj
+*.d
+*.su
+*.lst
+*.elf
+*.map
+*.bin
+*.hex
+*.axf
+*.srec
+
+# ------------------------------------------------------------------
+# Logs and diagnostics
+# ------------------------------------------------------------------
+*.log
+*.tmp
+post_flash_diagnostics.*
+*.gcda
+*.gcno
+
+# ------------------------------------------------------------------
+# Executables (host tests / tools)
+# ------------------------------------------------------------------
+*.exe
+*.out
+*.app
+*.dSYM/
+
+# ------------------------------------------------------------------
+# IDE / editor
+# ------------------------------------------------------------------
+.settings/
+.stm32cubeide/
+*.launch
+.vscode/ipch/
+.vscode/*.log
+*.uvgui.*
+*.uvoptx
+*.bak
+
+# ------------------------------------------------------------------
+# OS
+# ------------------------------------------------------------------
+Thumbs.db
+Desktop.ini
+.DS_Store
