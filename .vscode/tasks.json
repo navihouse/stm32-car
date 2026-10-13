@@ -23,6 +23,28 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Flash STM32 (Debug)",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts/flash.ps1"
+            ],
+            "dependsOn": "Build STM32 (Debug)",
+            "dependsOrder": "sequence",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": []
         }
     ]
 }

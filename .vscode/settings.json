@@ -15,5 +15,12 @@
         "starm-clangd",
         "--query-driver=${env:CUBE_BUNDLE_PATH}/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-gcc*",
         "--query-driver=${env:CUBE_BUNDLE_PATH}/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-g++*"
-    ]
+    ],
+    "stm32flash.programmer": "C:/Users/21656/AppData/Local/stm32cube/bundles/programmer/2.23.0/bin/STM32_Programmer_CLI.exe",
+    "stm32flash.toolchainDirs": [
+        "C:/Users/21656/AppData/Local/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin",
+        "C:/Users/21656/AppData/Local/stm32cube/bundles/ninja/1.13.2+st.1/bin",
+        "C:/Program Files/CMake/bin"
+    ],
+    "stm32flash.programmerArgs": "-c port=SWD sn=37FF71064E57343647121143 freq=100 mode=HOTPLUG -w \"{elf}\" -v -rst"
 }
